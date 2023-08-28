@@ -34,13 +34,13 @@ app.get("/:word/echo", (req, res) => {
 });
 
 app.get("/name", (req, res) => {
-    let firstname = req.query.firstname;
-    let lastname = req.query.lastname;
+    let first = req.query.first;
+    let last = req.query.last;
 
-    if (firstname && lastname) {
-        res.json({"name": `${firstname} ${lastname}`});
+    if (first && last) {
+        res.json({"name": `${first} ${last}`});
     } else {
-        res.status(400).json({"error": "Firstname and lastname are required."});
+        res.status(400).json({"error": "Firstname and last are required."});
     }
 });
 
