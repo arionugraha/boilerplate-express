@@ -45,8 +45,14 @@ app.route("/name").get((req, res) => {
         res.status(400).json({"error": "Firstname and last are required."});
     }
 }).post((req, res) => {
-    let data = req.body;
-    res.json({"data": data});
+    let first = req.body.first;
+    let last = req.body.last;
+
+    if (first && last) {
+        res.json({"name": `${first} ${last}`});
+    } else {
+        res.status(400).json({"error": "Firstname and last are required in the request body."});
+    }
 })
 
 
