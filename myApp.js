@@ -25,10 +25,12 @@ app.get("/json", function(req, res) {
 app.get("/now", function(req, res, next) {
     req.time = new Date().toString();
     next();
-}, function(req, res) {
-    setTimeout(() => {
-        res.json({"time": req.time});
-    }, 1000)
+}, (req, res )=> {
+    res.json({"time": req.time});
 })
+
+app.get("/:word/echo", (req, res) => {
+    res.json({"echo": req.params.word});
+});
 
 module.exports = app;
