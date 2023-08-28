@@ -1,7 +1,7 @@
-require('dotenv').config();
-let express = require('express');
-let app = express();
-
+require("dotenv").config();
+const bodyParser = require("body-parser");
+const express = require("express");
+const app = express();
 
 app.use(function(req, res, next) { 
     console.log(req.method + " " + req.path + " - " + req.ip);
@@ -9,6 +9,8 @@ app.use(function(req, res, next) {
 });
 
 app.use("/public", express.static(__dirname + "/public"));
+app.use(express.json());
+app.use(bodyParser.urlencoded({extended: false}))
 
 app.get("/", function(req, res) {
     res.sendFile(__dirname + "/views/index.html");
@@ -33,7 +35,7 @@ app.get("/:word/echo", (req, res) => {
     res.json({"echo": req.params.word});
 });
 
-app.get("/name", (req, res) => {
+app.route("/name").get((req, res) => {
     let first = req.query.first;
     let last = req.query.last;
 
@@ -42,6 +44,12 @@ app.get("/name", (req, res) => {
     } else {
         res.status(400).json({"error": "Firstname and last are required."});
     }
-});
+}).post((req, res) => {
+    let data = req.body;
+    res.json({"data": data});
+})
+
+
+
 
 module.exports = app;
