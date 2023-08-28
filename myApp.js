@@ -26,7 +26,9 @@ app.get("/now", function(req, res, next) {
     req.time = new Date().toString();
     next();
 }, function(req, res) {
-    res.json({"time": req.time});
+    setTimeout(() => {
+        res.json({"time": req.time});
+    }, 1000)
 })
 
 module.exports = app;
