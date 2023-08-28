@@ -33,4 +33,15 @@ app.get("/:word/echo", (req, res) => {
     res.json({"echo": req.params.word});
 });
 
+app.get("/name", (req, res) => {
+    let firstname = req.query.firstname;
+    let lastname = req.query.lastname;
+
+    if (firstname && lastname) {
+        res.json({"name": `${firstname} ${lastname}`});
+    } else {
+        res.status(400).json({"error": "Firstname and lastname are required."});
+    }
+});
+
 module.exports = app;
